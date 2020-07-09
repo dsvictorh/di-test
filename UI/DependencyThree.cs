@@ -1,20 +1,12 @@
 ﻿using System;
 
-namespace ConsoleApp1
+namespace UI
 {
     class DependencyThree : IInterfaceTwo
     {
-        private readonly IInterfaceOne service;
-
-        public DependencyThree(IInterfaceOne service)
+        public void DoAction() 
         {
-            this.service = service;
-        }
-
-        public void DoSomething() 
-        {
-            Console.WriteLine(this.service.DoActionOne("Hello"));
-            Console.WriteLine(this.service.DoActionTwo(-5));
+            Console.WriteLine("Execute DependencyThree Action");
         }
     }
 }

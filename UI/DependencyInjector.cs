@@ -7,26 +7,32 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.XPath;
 
-namespace ConsoleApp1
+namespace UI
 {
     class DependencyInjector
     {
-        private List<KeyValuePair<string, Type>> _dependencies;
+        private List<KeyValuePair<Type, Type>> _dependencies;
 
         public DependencyInjector() 
         {
-            this._dependencies = new List<KeyValuePair<string, Type>>();
+            this._dependencies = new List<KeyValuePair<Type, Type>>();
         }
 
-        public void Register<I, C>() where C: I
+        public void Register<I, C>() where C : I
         {
-            this._dependencies.Add(new KeyValuePair<string, Type>(typeof(I).Name, typeof(C)));
+            var dependency = this._dependencies.FirstOrDefault((i) => i.Key.Equals(typeof(I)));
+            if (!dependency.Equals(default(KeyValuePair<Type, Type>)))
+            {
+                throw new Exception("Dependency of type " + typeof(I).Name + " is already registered");
+            }
+
+            this._dependencies.Add(new KeyValuePair<Type, Type>(typeof(I), typeof(C)));
         }
 
         private object Resolve<I>()
         {
-            var pair = this._dependencies.FirstOrDefault((i) => i.Key.Equals(typeof(I).Name));
-            if (pair.Equals(default(KeyValuePair<string, Type>)))
+            var pair = this._dependencies.FirstOrDefault((i) => i.Key.Equals(typeof(I)));
+            if (pair.Equals(default(KeyValuePair<Type, Type>)))
             {
                 throw new Exception("Dependency is not registered");
             }

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConsoleApp1
+namespace UI
 {
     interface IInterfaceTwo
     {
-        void DoSomething();
+        void DoAction();
     }
 }

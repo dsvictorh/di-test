@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Runtime.Loader;
 
-namespace ConsoleApp1
+namespace UI
 {
     class Program
     {
         static void Main(string[] args)
         {
-            /*DependencyOne dOne = new DependencyOne();
-            DependencyTwo dTwo = new DependencyTwo();
-
-            DependantObject obj1 = new DependantObject(dOne);
-            DependantObject obj2 = new DependantObject(dTwo);*/
-
             DependencyInjector injector = new DependencyInjector();
             injector.Register<IInterfaceOne, DependencyTwo>();
-            injector.Register<IInterfaceTwo, DependencyThree>();
+            injector.Register<IInterfaceTwo, DependencyFour>();
 
-            DependantObject obj1 = injector.Instantiate<DependantObject>();
-            obj1.ActionService();
+            DependantObjectTwo obj1 = injector.Instantiate<DependantObjectTwo>(); 
+            obj1.UseServiceOneAction();
+            obj1.UseServiceTwoAction();
         }
     }
 }
